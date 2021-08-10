@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./images/favicon-32x32.png"
+        />
+        <title>Frontend Mentor | Calculator app</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./css/normalize.min.css" />
+        <link rel="stylesheet" href="./css/main.css" />
+    </head>
+
+    <body class="app">
+        <header class="header">
+            <h1 class="header__title">calc</h1>
+            <div class="header__right-container">
+                <div class="theme-numbers">
+                    <span class="theme-numbers__number">1</span>
+                    <span class="theme-numbers__number">2</span>
+                    <span class="theme-numbers__number">3</span>
+                </div>
+                <div class="theme-selector">
+                    <label for="slider">THEME</label>
+                    <input
+                        type="range"
+                        name="slider"
+                        min="1"
+                        max="3"
+                        id="slider"
+                        class="theme-selector__slider"
+                    />
+                </div>
+            </div>
+        </header>
+        <main class="calculator">
+            <section class="screen">
+                <div class="screen__container">
+                    <div class="screen__amount" id="screen">399,981</div>
+                </div>
+            </section>
+            <section class="buttons">
+                <div class="buttons__container" id="buttons_container">
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="7"
+                    >
+                        7
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="8"
+                    >
+                        8
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="9"
+                    >
+                        9
+                    </button>
+                    <button
+                        class="
+                            buttons__button
+                            button--secondary button--wletters
+                        "
+                        data-operation="delete"
+                    >
+                        DEL
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="4"
+                    >
+                        4
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="5"
+                    >
+                        5
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="6"
+                    >
+                        6
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-operation="sum"
+                    >
+                        +
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="1"
+                    >
+                        1
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="2"
+                    >
+                        2
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="3"
+                    >
+                        3
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-operation="substract"
+                    >
+                        -
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-operation="add_decimal"
+                    >
+                        .
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-type="number"
+                        data-value="0"
+                    >
+                        0
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-operation="divide"
+                    >
+                        /
+                    </button>
+                    <button
+                        class="buttons__button button--number"
+                        data-operation="multiply"
+                    >
+                        x
+                    </button>
+                    <button
+                        class="
+                            buttons__button
+                            button--secondary button--reset button--wletters
+                        "
+                        data-operation="reset"
+                    >
+                        RESET
+                    </button>
+                    <button
+                        class="buttons__button button--primary button--equal"
+                        data-operation="get_result"
+                    >
+                        =
+                    </button>
+                </div>
+            </section>
+        </main>
+    </body>
+    <script src="./js/main.js"></script>
+</html>
