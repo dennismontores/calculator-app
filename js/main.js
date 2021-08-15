@@ -26,9 +26,17 @@ const UI = (() => {
     return {
         elements,
         printResult: (value) => {
-            console.log({ value, screenValue });
-            screenValue = +(screenValue + value).toString();
+            if (screenValue === '0' && value === 0) {
+                elements.screen.textContent = screenValue;
+                return;
+            }
+
+            screenValue = (+(+screenValue + value)).toString();
             elements.screen.textContent = screenValue;
+        },
+        printDecimal: (value) => {
+            screenValue = value;
+            elements.screen.textContent = value;
         },
         clearScreen: () => {
             screenValue = '0';
@@ -66,42 +74,34 @@ const CONTROLLER = (() => {
         addOperation: (operation) => {
             if (
                 operationsAndAmounts[operationsAndAmounts.length - 1] ===
-                operation
+                    operation ||
+                !(operation in operations)
             ) {
                 return;
             }
             operationsAndAmounts.push(operation);
-            console.log(operationsAndAmounts);
         },
-        addAmount: (amount) => {
-            operationsAndAmounts.push(amount);
-            console.log(operationsAndAmounts);
-        },
-        getLastValue: () => {
-            return operationsAndAmounts[operationsAndAmounts.length - 1];
-        },
+        addAmount: (amount) => operationsAndAmounts.push(amount),
+        getLastValue: () =>
+            operationsAndAmounts[operationsAndAmounts.length - 1],
         getResult: () => {
             let res = 0;
             if (isNaN(operationsAndAmounts[operationsAndAmounts.length - 1])) {
                 operationsAndAmounts.pop();
             }
             const resu = operationsAndAmounts.reduce((prev, curr, idx) => {
-                console.log({ curr, prev, res, idx });
                 if (idx === 1) {
-                    console.log({ curr, prev, res });
                     res = prev;
                 }
 
                 if (isNaN(curr)) {
-                    console.log({ curr, prev, res });
                     res = operations[curr](res, operationsAndAmounts[idx + 1]);
                 }
                 return res;
             });
-            console.log({resu,  operationsAndAmounts});
-            return resu
+            return resu;
         },
-        resetOperationsAndAmounts: () => {operationsAndAmounts.length = 0}
+        resetOperationsAndAmounts: () => (operationsAndAmounts.length = 0),
     };
 })();
 
@@ -111,8 +111,21 @@ const app = ((ui, ctrl) => {
             e.preventDefault();
             const { target } = e;
             const { operation, value } = target.dataset;
+            if (operation === 'add_decimal') {
+                const screenVal = ui.getScreenValue();
+                if (screenVal.includes('.')) {
+                    return;
+                }
+                ui.printDecimal(`${screenVal}.`);
+                return;
+            }
+
+            if (operation === 'delete') {
+                ui.clearScreen();
+                ui.printResult(0);
+            }
+
             if (operation) {
-                console.log(operation);
                 if (!+ui.getScreenValue()) {
                     return;
                 }
@@ -125,11 +138,23 @@ const app = ((ui, ctrl) => {
                 const result = ctrl.getResult();
                 ui.clearScreen();
                 ui.printResult(result);
-                ctrl.resetOperationsAndAmounts(result)
+                ctrl.resetOperationsAndAmounts();
+                return;
+            }
+
+            if (operation === 'reset') {
+                ctrl.resetOperationsAndAmounts();
+                ui.clearScreen();
+                ui.printResult(0);
                 return;
             }
 
             if (target.dataset.value) {
+                const screenVal = ui.getScreenValue();
+                if (screenVal.includes('.')) {
+                    ui.printDecimal(`${screenVal}${target.dataset.value}`);
+                    return;
+                }
                 ui.printResult(target.dataset.value);
             }
         });
